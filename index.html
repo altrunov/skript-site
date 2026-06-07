@@ -3,11 +3,660 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=ai-sales-agents.html">
-  <title>AI Sales Agents</title>
-  <link rel="canonical" href="ai-sales-agents.html">
+  <title>AI-продавцы для Telegram, заявок и созвонов</title>
+  <meta name="description" content="AI-продавцы, которые отвечают лидам, квалифицируют заявки, ведут к созвону, контролируют качество и учатся на проваленных диалогах.">
+  <style>
+    :root {
+      --ink: #0f172a;
+      --paper: #f8fafc;
+      --muted: #64748b;
+      --line: #dbe3ea;
+      --panel: #ffffff;
+      --green: #16a34a;
+      --teal: #0f766e;
+      --blue: #2563eb;
+      --amber: #b45309;
+      --rose: #be123c;
+      --dark: #07111f;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    .hero {
+      min-height: 86vh;
+      display: grid;
+      align-items: center;
+      position: relative;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(5, 12, 24, .96) 0%, rgba(5, 12, 24, .84) 38%, rgba(5, 12, 24, .42) 70%, rgba(5, 12, 24, .18) 100%),
+        url("assets/ai-sales-hero.png") center / cover no-repeat;
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+    }
+    .nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px clamp(18px, 4vw, 56px);
+      color: rgba(255, 255, 255, .86);
+      z-index: 2;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #e8fbf0;
+      color: var(--green);
+      font-weight: 900;
+    }
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 14px;
+    }
+    .hero-inner {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 104px 0 70px;
+    }
+    .hero-copy { max-width: 690px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #b7f7cf;
+      background: rgba(22, 163, 74, .14);
+      border: 1px solid rgba(183, 247, 207, .24);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(38px, 6vw, 76px);
+      line-height: .98;
+      letter-spacing: 0;
+      max-width: 760px;
+    }
+    .hero p {
+      max-width: 640px;
+      margin: 22px 0 0;
+      font-size: clamp(17px, 2vw, 22px);
+      color: rgba(255, 255, 255, .82);
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, .18);
+    }
+    .btn.primary {
+      background: #22c55e;
+      color: #052e16;
+      animation: pulseCta 3.8s ease-in-out infinite;
+    }
+    .btn.secondary { border-color: rgba(255, 255, 255, .28); color: #fff; background: rgba(255, 255, 255, .08); }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      width: min(780px, 100%);
+      margin-top: 46px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      background: rgba(255, 255, 255, .18);
+    }
+    .hero-metric {
+      background: rgba(7, 17, 31, .74);
+      padding: 16px;
+      min-height: 92px;
+    }
+    .hero-metric strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1;
+      margin-bottom: 8px;
+      color: #b7f7cf;
+    }
+    .hero-metric span { color: rgba(255, 255, 255, .72); font-size: 13px; }
+    section {
+      padding: 64px clamp(18px, 4vw, 56px);
+    }
+    .section-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+    .section-kicker {
+      color: var(--teal);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.06;
+      letter-spacing: 0;
+    }
+    .section-head p {
+      color: var(--muted);
+      font-size: 18px;
+      margin: 14px 0 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      min-height: 190px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
+      transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+    }
+    .card:hover, .compare-list:hover, .step:hover {
+      transform: translateY(-4px);
+      border-color: rgba(15, 118, 110, .42);
+      box-shadow: 0 18px 42px rgba(15, 23, 42, .11);
+    }
+    .icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      background: #ecfdf5;
+      color: var(--green);
+      font-weight: 900;
+      font-size: 18px;
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      line-height: 1.2;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .band {
+      background: #07111f;
+      color: #eef6ff;
+    }
+    .band .section-kicker { color: #86efac; }
+    .band .section-head p { color: rgba(238, 246, 255, .74); }
+    .workflow {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .steps {
+      display: grid;
+      gap: 10px;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 12px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      padding: 14px;
+      background: rgba(255, 255, 255, .06);
+      transition: transform .24s ease, border-color .24s ease, background .24s ease, box-shadow .24s ease;
+    }
+    .step-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: #22c55e;
+      color: #052e16;
+      font-weight: 900;
+    }
+    .step h3 { margin: 0 0 4px; font-size: 17px; }
+    .step p { margin: 0; color: rgba(238, 246, 255, .72); font-size: 14px; }
+    .proof {
+      background: #fff;
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, .16);
+    }
+    .proof-row {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .proof-row:last-child { border-bottom: 0; }
+    .proof-row strong { font-size: 26px; color: var(--teal); }
+    .proof-row span { color: var(--muted); font-size: 14px; }
+    .compare {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .compare-list {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+    }
+    .compare-list h3 { margin: 0 0 14px; }
+    .compare-list ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .compare-list li {
+      padding-left: 24px;
+      position: relative;
+      color: var(--muted);
+    }
+    .compare-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--green);
+    }
+    .compare-list.warning li::before { background: var(--amber); }
+    .cta {
+      background: #e9f8ef;
+      border-top: 1px solid #cdebd8;
+      border-bottom: 1px solid #cdebd8;
+    }
+    .cta-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #cdebd8;
+      border-radius: 8px;
+      padding: clamp(20px, 4vw, 34px);
+    }
+    .cta-box p { color: var(--muted); margin: 10px 0 0; max-width: 720px; }
+    .share-panel {
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+      max-width: 760px;
+    }
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font-weight: 800;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, .06);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .social-link:hover {
+      transform: translateY(-3px);
+      border-color: rgba(37, 99, 235, .34);
+      box-shadow: 0 16px 34px rgba(15, 23, 42, .13);
+    }
+    .anim-ready .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .anim-ready .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hero-copy {
+      animation: heroIn .86s ease both;
+    }
+    .hero-metric {
+      animation: metricIn .62s ease both;
+    }
+    .hero-metric:nth-child(2) { animation-delay: .08s; }
+    .hero-metric:nth-child(3) { animation-delay: .16s; }
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes metricIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseCta {
+      0%, 100% { box-shadow: 0 0 0 rgba(34, 197, 94, 0); }
+      45% { box-shadow: 0 0 0 8px rgba(34, 197, 94, .11); }
+    }
+    footer {
+      padding: 26px clamp(18px, 4vw, 56px);
+      color: var(--muted);
+      font-size: 13px;
+      background: #fff;
+      border-top: 1px solid var(--line);
+    }
+    footer .section-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero { min-height: 780px; }
+      .hero-metrics, .grid, .workflow, .compare, .cta-box { grid-template-columns: 1fr; }
+      .hero-inner { padding-top: 96px; }
+      .proof-row { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
 <body>
-  <a href="ai-sales-agents.html">Открыть сайт AI Sales Agents</a>
+  <header class="hero">
+    <nav class="nav" aria-label="Главная навигация">
+      <a class="brand" href="#">
+        <span class="brand-mark">AI</span>
+        <span>AI Sales Agents</span>
+      </a>
+      <div class="nav-links">
+        <a href="#system">Как работает</a>
+        <a href="#coach">Контроль качества</a>
+        <a href="#launch">Запуск</a>
+      </div>
+    </nav>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow">AI-продавец для заявок, Telegram и повторных касаний</div>
+        <h1>AI-агенты, которые не просто пишут, а доводят лидов до сделки</h1>
+        <p>Система отвечает на входящие, ищет горячие сигналы, квалифицирует лидов, предлагает следующий шаг, контролирует качество ответов и учится на проваленных диалогах.</p>
+        <div class="actions">
+          <a class="btn primary" href="#launch">Разобрать мой сценарий</a>
+          <a class="btn secondary" href="#system">Посмотреть систему</a>
+        </div>
+        <div class="hero-metrics" aria-label="Ключевые преимущества">
+          <div class="hero-metric">
+            <strong>24/7</strong>
+            <span>ответы и follow-up без ожидания менеджера</span>
+          </div>
+          <div class="hero-metric">
+            <strong>0-100</strong>
+            <span>скоринг готовности лида к созвону или оплате</span>
+          </div>
+          <div class="hero-metric">
+            <strong>QA</strong>
+            <span>контроль качества каждого ответа AI-продавца</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="system">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-kicker">Что продает система</div>
+        <h2>Полный цикл: от первого касания до следующего действия</h2>
+        <p>Мы взяли сильные элементы рынка AI SDR: персонализацию, multi-channel, календарь, CRM-контекст и автономные follow-up. Затем добавили то, чего часто не хватает: обучение на ошибках и видимый контроль качества.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="icon">1</div>
+          <h3>Отвечает на входящие</h3>
+          <p>AI-продавец не теряет заявки: понимает контекст, отвечает в нужном тоне и продолжает диалог без повторного старта.</p>
+        </article>
+        <article class="card">
+          <div class="icon">2</div>
+          <h3>Квалифицирует лидов</h3>
+          <p>Собирает нишу, канал внедрения, средний чек, CRM, цель по клиентам и статус созвона.</p>
+        </article>
+        <article class="card">
+          <div class="icon">3</div>
+          <h3>Доводит до действия</h3>
+          <p>Не ограничивается “ответом”: предлагает созвон, уточнение, оплату или передачу человеку.</p>
+        </article>
+        <article class="card">
+          <div class="icon">4</div>
+          <h3>Следит за молчащими</h3>
+          <p>Подсвечивает лидов, которые ждут ответа, замолчали после цены или потерялись после первого касания.</p>
+        </article>
+        <article class="card">
+          <div class="icon">5</div>
+          <h3>Разбирает провалы</h3>
+          <p>Находит длинные ответы, перегруз вопросами, повторные вопросы и отсутствие следующего шага.</p>
+        </article>
+        <article class="card">
+          <div class="icon">6</div>
+          <h3>Учит продавца</h3>
+          <p>Провальные диалоги превращаются в уроки, которые попадают в память AI-продавца.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="coach">
+    <div class="section-inner workflow">
+      <div>
+        <div class="section-head">
+          <div class="section-kicker">Отличие от обычного чат-бота</div>
+          <h2>AI-продавец работает как команда: SDR, менеджер, QA и тренер</h2>
+          <p>Обычный бот отвечает. Наша система смотрит, к чему ведет ответ, какой риск потерять лида и какой урок надо сохранить после провала.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div>
+              <h3>Скоринг лида</h3>
+              <p>Показывает температуру, причину оценки и что именно двигает сделку.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div>
+              <h3>AI Sales Coach</h3>
+              <p>Оценивает последний ответ: коротко ли, есть ли следующий шаг, не повторяет ли вопросы.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div>
+              <h3>Улучшенный ответ</h3>
+              <p>Дает продавцу готовую версию сообщения: мягче, короче и с ясным действием.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div>
+              <h3>Урок из провала</h3>
+              <p>Если диалог потерян, система сохраняет правило, чтобы не повторять ошибку.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="proof">
+        <div class="proof-row">
+          <strong>SDR</strong>
+          <span>поиск, первое касание, квалификация и повторные сообщения.</span>
+        </div>
+        <div class="proof-row">
+          <strong>CRM</strong>
+          <span>память по каждому лиду: канал, чек, ниша, следующий шаг.</span>
+        </div>
+        <div class="proof-row">
+          <strong>QA</strong>
+          <span>проверка качества AI-ответов и подсветка рискованных диалогов.</span>
+        </div>
+        <div class="proof-row">
+          <strong>Coach</strong>
+          <span>разбор ошибок и улучшение сценариев на базе реальных переписок.</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-kicker">Что важно для владельца</div>
+        <h2>Не “магия AI”, а управляемая система продаж</h2>
+        <p>Сайт и продукт делают акцент на вещах, которые видны в сильных AI sales платформах: интеграции, измеримый pipeline, автономные действия и контроль человеком.</p>
+      </div>
+      <div class="compare">
+        <div class="compare-list">
+          <h3>Что получает бизнес</h3>
+          <ul>
+            <li>Быстрый ответ лидам без ожидания свободного менеджера.</li>
+            <li>Единый сценарий продаж, который не зависит от настроения сотрудника.</li>
+            <li>Список горячих лидов и понятное следующее действие.</li>
+            <li>Контроль качества: видно, где AI может потерять клиента.</li>
+            <li>Обучение на успешных и проваленных диалогах.</li>
+          </ul>
+        </div>
+        <div class="compare-list warning">
+          <h3>Что мы не обещаем</h3>
+          <ul>
+            <li>Не заменяем владельца там, где нужен финальный контроль.</li>
+            <li>Не отправляем опасные действия без правил и ограничений.</li>
+            <li>Не прячем ошибки: дашборд показывает риски, логи и провалы.</li>
+            <li>Не копируем чужие шаблоны: сценарий строится под вашу нишу.</li>
+            <li>Не смешиваем код, базы, ключи и Telegram-сессии в открытом доступе.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="launch">
+    <div class="section-inner">
+      <div class="cta-box">
+        <div>
+          <h2>Запустим AI-продавца под вашу нишу</h2>
+          <p>Разберем, где у вас теряются лиды: входящие заявки, Telegram, холодные касания, follow-up, созвоны или оплата. Затем соберем сценарий, подключим базу и покажем метрики в дашборде.</p>
+          <div class="share-panel" aria-label="Кнопки поделиться страницей">
+            <div class="social-links">
+              <a class="social-link" href="#" data-share="telegram">Telegram</a>
+              <a class="social-link" href="#" data-share="vk">VK</a>
+              <a class="social-link" href="#" data-share="whatsapp">WhatsApp</a>
+              <a class="social-link" href="#" data-share="x">X</a>
+              <a class="social-link" href="#" data-share="email">Email</a>
+            </div>
+          </div>
+        </div>
+        <a class="btn primary" href="mailto:sales@example.com?subject=AI-продавец">Обсудить запуск</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="section-inner">
+      <span>AI Sales Agents. Сайт-черновик для продукта AI-продавцов.</span>
+      <span>Основано на рыночных паттернах AI SDR, адаптировано под наш дашборд и обучение.</span>
+    </div>
+  </footer>
+  <script>
+    document.documentElement.classList.add("anim-ready");
+    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .cta-box");
+    revealItems.forEach((item) => item.classList.add("reveal"));
+    const pageUrl = window.location.href.split("#")[0];
+    const shareText = "AI-продавцы для лидов, Telegram и созвонов";
+
+    document.querySelectorAll("[data-share]").forEach((link) => {
+      const encodedUrl = encodeURIComponent(pageUrl);
+      const encodedText = encodeURIComponent(shareText);
+      const shareType = link.dataset.share;
+      const urls = {
+        telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`,
+        vk: `https://vk.com/share.php?url=${encodedUrl}&title=${encodedText}`,
+        whatsapp: `https://api.whatsapp.com/send?text=${encodedText}%3A%20${encodedUrl}`,
+        x: `https://x.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`,
+        email: `mailto:?subject=${encodedText}&body=${encodedUrl}`
+      };
+
+      link.href = urls[shareType] || pageUrl;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    revealItems.forEach((item) => observer.observe(item));
+  </script>
 </body>
 </html>
