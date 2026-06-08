@@ -27,6 +27,7 @@
       background: var(--paper);
       font-family: Inter, Segoe UI, Arial, sans-serif;
       line-height: 1.5;
+      overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
     .hero {
@@ -158,6 +159,53 @@
     .hero-metric span { color: rgba(255, 255, 255, .72); font-size: 13px; }
     section {
       padding: 64px clamp(18px, 4vw, 56px);
+    }
+    .page-block {
+      position: relative;
+      isolation: isolate;
+    }
+    .page-block.is-dragging {
+      opacity: .72;
+      transform: scale(.992);
+    }
+    .page-block.is-drop-target::before {
+      content: "";
+      position: absolute;
+      left: clamp(18px, 4vw, 56px);
+      right: clamp(18px, 4vw, 56px);
+      top: 0;
+      height: 4px;
+      border-radius: 999px;
+      background: #22c55e;
+      z-index: 4;
+      box-shadow: 0 0 0 5px rgba(34, 197, 94, .15);
+    }
+    .drag-handle {
+      position: absolute;
+      top: 18px;
+      right: clamp(18px, 4vw, 56px);
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(15, 23, 42, .12);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .92);
+      color: var(--teal);
+      cursor: grab;
+      z-index: 5;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .09);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .drag-handle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(15, 23, 42, .16);
+    }
+    .drag-handle:active { cursor: grabbing; }
+    .band .drag-handle {
+      border-color: rgba(255, 255, 255, .18);
+      background: rgba(255, 255, 255, .12);
+      color: #86efac;
     }
     .section-inner {
       width: min(1180px, 100%);
@@ -417,6 +465,11 @@
       transform: translateY(22px);
       transition: opacity .7s ease, transform .7s ease;
     }
+    .anim-ready .reveal[data-anim="slide-left"] { transform: translateX(-26px); }
+    .anim-ready .reveal[data-anim="slide-right"] { transform: translateX(26px); }
+    .anim-ready .reveal[data-anim="zoom"] { transform: scale(.96); }
+    .anim-ready .reveal[data-anim="lift"] { transform: translateY(32px) scale(.985); }
+    .anim-ready .reveal[data-anim="tilt"] { transform: translateY(24px) rotate(-.7deg); }
     .anim-ready .reveal.is-visible {
       opacity: 1;
       transform: translateY(0);
@@ -460,6 +513,16 @@
       .hero-metrics, .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .cta-box { grid-template-columns: 1fr; }
       .hero-inner { padding-top: 96px; }
       .proof-row { grid-template-columns: 1fr; }
+      .drag-handle {
+        width: 34px;
+        height: 34px;
+        top: 12px;
+      }
+      .anim-ready .reveal[data-anim="slide-left"],
+      .anim-ready .reveal[data-anim="slide-right"],
+      .anim-ready .reveal[data-anim="tilt"] {
+        transform: translateY(22px);
+      }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -512,7 +575,9 @@
     </div>
   </header>
 
-  <section id="system">
+  <main id="pageBlocks">
+  <section class="page-block" id="system" draggable="true" data-block-id="system" data-anim="slide-left">
+    <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
     <div class="section-inner">
       <div class="section-head">
         <div class="section-kicker">Что продает система</div>
@@ -554,7 +619,8 @@
     </div>
   </section>
 
-  <section class="band" id="coach">
+  <section class="page-block band" id="coach" draggable="true" data-block-id="coach" data-anim="zoom">
+    <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
     <div class="section-inner workflow">
       <div>
         <div class="section-head">
@@ -614,7 +680,8 @@
     </div>
   </section>
 
-  <section>
+  <section class="page-block" id="owner" draggable="true" data-block-id="owner" data-anim="slide-right">
+    <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
     <div class="section-inner">
       <div class="section-head">
         <div class="section-kicker">Что важно для владельца</div>
@@ -646,7 +713,8 @@
     </div>
   </section>
 
-  <section class="testimonials" id="reviews">
+  <section class="page-block testimonials" id="reviews" draggable="true" data-block-id="reviews" data-anim="tilt">
+    <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
     <div class="section-inner">
       <div class="section-head">
         <div class="section-kicker">Отзывы клиентов</div>
@@ -676,7 +744,8 @@
     </div>
   </section>
 
-  <section class="cta" id="launch">
+  <section class="page-block cta" id="launch" draggable="true" data-block-id="launch" data-anim="lift">
+    <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
     <div class="section-inner">
       <div class="cta-box">
         <div>
@@ -696,6 +765,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <footer>
     <div class="section-inner">
@@ -705,8 +775,25 @@
   </footer>
   <script>
     document.documentElement.classList.add("anim-ready");
+    const blockWrap = document.querySelector("#pageBlocks");
+    const blocks = [...document.querySelectorAll(".page-block")];
     const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .cta-box");
-    revealItems.forEach((item) => item.classList.add("reveal"));
+    const blockOrderKey = "aiSalesBlockOrder";
+    const storedOrder = JSON.parse(localStorage.getItem(blockOrderKey) || "[]");
+    const blockMap = new Map(blocks.map((block) => [block.dataset.blockId, block]));
+
+    storedOrder.forEach((id) => {
+      const block = blockMap.get(id);
+      if (block) blockWrap.appendChild(block);
+    });
+
+    revealItems.forEach((item, index) => {
+      item.classList.add("reveal");
+      item.style.transitionDelay = `${Math.min(index % 6, 5) * 45}ms`;
+      if (!item.dataset.anim && item.matches(".card, .step, .review-card")) {
+        item.dataset.anim = ["slide-left", "zoom", "slide-right", "lift"][index % 4];
+      }
+    });
     const pageUrl = window.location.href.split("#")[0];
     const shareText = "AI-продавцы для лидов, Telegram и созвонов";
 
@@ -723,6 +810,53 @@
       };
 
       link.href = urls[shareType] || pageUrl;
+    });
+
+    let draggedBlock = null;
+
+    const saveBlockOrder = () => {
+      const order = [...document.querySelectorAll(".page-block")].map((block) => block.dataset.blockId);
+      localStorage.setItem(blockOrderKey, JSON.stringify(order));
+    };
+
+    document.querySelectorAll(".drag-handle").forEach((handle) => {
+      handle.addEventListener("pointerdown", () => {
+        handle.closest(".page-block").setAttribute("draggable", "true");
+      });
+    });
+
+    document.querySelectorAll(".page-block").forEach((block) => {
+      block.addEventListener("dragstart", (event) => {
+        draggedBlock = block;
+        block.classList.add("is-dragging");
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", block.dataset.blockId);
+      });
+
+      block.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        if (block !== draggedBlock) block.classList.add("is-drop-target");
+      });
+
+      block.addEventListener("dragleave", () => {
+        block.classList.remove("is-drop-target");
+      });
+
+      block.addEventListener("drop", (event) => {
+        event.preventDefault();
+        block.classList.remove("is-drop-target");
+        if (!draggedBlock || draggedBlock === block) return;
+
+        const shouldPlaceAfter = event.clientY > block.getBoundingClientRect().top + block.offsetHeight / 2;
+        blockWrap.insertBefore(draggedBlock, shouldPlaceAfter ? block.nextSibling : block);
+        saveBlockOrder();
+      });
+
+      block.addEventListener("dragend", () => {
+        block.classList.remove("is-dragging");
+        document.querySelectorAll(".is-drop-target").forEach((item) => item.classList.remove("is-drop-target"));
+        draggedBlock = null;
+      });
     });
 
     const observer = new IntersectionObserver((entries) => {
