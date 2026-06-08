@@ -531,6 +531,126 @@
       color: var(--muted);
       font-size: 13px;
     }
+    .calculator {
+      background: #07111f;
+      color: #eef6ff;
+    }
+    .calculator .section-kicker { color: #86efac; }
+    .calculator .section-head p { color: rgba(238, 246, 255, .74); }
+    .calc-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .calc-panel,
+    .calc-result {
+      border-radius: 8px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(255, 255, 255, .06);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .18);
+    }
+    .calc-panel {
+      display: grid;
+      gap: 16px;
+    }
+    .calc-field {
+      display: grid;
+      gap: 8px;
+    }
+    .calc-field label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: rgba(238, 246, 255, .84);
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .calc-field strong { color: #86efac; }
+    .calc-field input[type="range"] {
+      width: 100%;
+      accent-color: #22c55e;
+    }
+    .calc-field input[type="number"] {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .08);
+      color: #fff;
+      font: inherit;
+      padding: 11px 12px;
+      outline: none;
+    }
+    .calc-field input[type="number"]:focus {
+      border-color: #86efac;
+      box-shadow: 0 0 0 3px rgba(134, 239, 172, .16);
+    }
+    .calc-result {
+      display: grid;
+      gap: 14px;
+      background: #fff;
+      color: var(--ink);
+    }
+    .calc-result-main {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .calc-result-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #f8fafc;
+    }
+    .calc-result-card strong {
+      display: block;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    .calc-result-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .calc-note {
+      border-radius: 8px;
+      padding: 14px;
+      background: #ecfdf5;
+      border: 1px solid #bbf7d0;
+      color: #14532d;
+      font-weight: 800;
+    }
+    .calc-bars {
+      display: grid;
+      gap: 10px;
+    }
+    .calc-bar {
+      display: grid;
+      gap: 6px;
+    }
+    .calc-bar-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .calc-track {
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #e2e8f0;
+    }
+    .calc-track span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #16a34a, #0f766e);
+      transition: width .35s ease;
+    }
     .cta {
       background: #e9f8ef;
       border-top: 1px solid #cdebd8;
@@ -631,7 +751,7 @@
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .hero { min-height: 780px; }
-      .hero-metrics, .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .case-layout, .case-highlight, .cta-box { grid-template-columns: 1fr; }
+      .hero-metrics, .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .case-layout, .case-highlight, .calc-layout, .calc-result-main, .cta-box { grid-template-columns: 1fr; }
       .hero-inner { padding-top: 96px; }
       .proof-row { grid-template-columns: 1fr; }
       .drag-handle {
@@ -918,6 +1038,60 @@
     </div>
   </section>
 
+  <section class="page-block calculator" id="calculator" draggable="true" data-block-id="calculator" data-anim="zoom">
+    <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-kicker">Калькулятор выгоды</div>
+        <h2>Посчитайте, сколько лидов и денег можно вернуть AI-продавцом</h2>
+        <p>Передвиньте ползунки под свои цифры. Расчёт примерный, но быстро показывает, где AI-продавец может окупиться.</p>
+      </div>
+      <div class="calc-layout">
+        <div class="calc-panel" aria-label="Параметры расчёта">
+          <div class="calc-field">
+            <label for="calcLeads">Заявок в месяц <strong id="calcLeadsValue">120</strong></label>
+            <input id="calcLeads" type="range" min="20" max="1000" step="10" value="120">
+          </div>
+          <div class="calc-field">
+            <label for="calcLost">Сколько теряется <strong id="calcLostValue">30%</strong></label>
+            <input id="calcLost" type="range" min="5" max="80" step="1" value="30">
+          </div>
+          <div class="calc-field">
+            <label for="calcConversion">Конверсия в оплату <strong id="calcConversionValue">18%</strong></label>
+            <input id="calcConversion" type="range" min="3" max="60" step="1" value="18">
+          </div>
+          <div class="calc-field">
+            <label for="calcTicket">Средний чек</label>
+            <input id="calcTicket" type="number" min="1000" max="10000000" step="1000" value="50000">
+          </div>
+        </div>
+        <div class="calc-result" aria-live="polite">
+          <div class="calc-result-main">
+            <div class="calc-result-card">
+              <strong id="calcRecoveredLeads">22</strong>
+              <span>лида можно вернуть в работу в месяц</span>
+            </div>
+            <div class="calc-result-card">
+              <strong id="calcRevenue">198 000 ₽</strong>
+              <span>потенциальной выручки с возвращённых лидов</span>
+            </div>
+          </div>
+          <div class="calc-bars">
+            <div class="calc-bar">
+              <div class="calc-bar-head"><span>Потерянные лиды</span><strong id="calcLostLeads">36</strong></div>
+              <div class="calc-track"><span id="calcLostBar" style="width: 30%"></span></div>
+            </div>
+            <div class="calc-bar">
+              <div class="calc-bar-head"><span>Возвращённые AI-продавцом</span><strong id="calcRecoveredBarLabel">22</strong></div>
+              <div class="calc-track"><span id="calcRecoveredBar" style="width: 18%"></span></div>
+            </div>
+          </div>
+          <div class="calc-note" id="calcNote">Если AI вернёт хотя бы 60% потерянных лидов, у вас появится около 4 дополнительных оплат в месяц.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="page-block cta" id="launch" draggable="true" data-block-id="launch" data-anim="lift">
     <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
     <div class="section-inner">
@@ -951,7 +1125,7 @@
     document.documentElement.classList.add("anim-ready");
     const blockWrap = document.querySelector("#pageBlocks");
     const blocks = [...document.querySelectorAll(".page-block")];
-    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .case-summary, .case-results, .case-highlight div, .cta-box");
+    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .case-summary, .case-results, .case-highlight div, .calc-panel, .calc-result, .cta-box");
     const blockOrderKey = "aiSalesBlockOrder";
     const storedOrder = JSON.parse(localStorage.getItem(blockOrderKey) || "[]");
     const blockMap = new Map(blocks.map((block) => [block.dataset.blockId, block]));
@@ -985,6 +1159,54 @@
 
       link.href = urls[shareType] || pageUrl;
     });
+
+    const calc = {
+      leads: document.querySelector("#calcLeads"),
+      lost: document.querySelector("#calcLost"),
+      conversion: document.querySelector("#calcConversion"),
+      ticket: document.querySelector("#calcTicket"),
+      leadsValue: document.querySelector("#calcLeadsValue"),
+      lostValue: document.querySelector("#calcLostValue"),
+      conversionValue: document.querySelector("#calcConversionValue"),
+      recoveredLeads: document.querySelector("#calcRecoveredLeads"),
+      revenue: document.querySelector("#calcRevenue"),
+      lostLeads: document.querySelector("#calcLostLeads"),
+      lostBar: document.querySelector("#calcLostBar"),
+      recoveredBar: document.querySelector("#calcRecoveredBar"),
+      recoveredBarLabel: document.querySelector("#calcRecoveredBarLabel"),
+      note: document.querySelector("#calcNote")
+    };
+
+    const formatNumber = (value) => new Intl.NumberFormat("ru-RU").format(value);
+    const formatMoney = (value) => `${formatNumber(value)} ₽`;
+
+    const updateCalculator = () => {
+      const leads = Number(calc.leads.value);
+      const lostPercent = Number(calc.lost.value);
+      const conversionPercent = Number(calc.conversion.value);
+      const ticket = Math.max(Number(calc.ticket.value) || 0, 0);
+      const lostLeads = Math.round(leads * lostPercent / 100);
+      const recovered = Math.round(lostLeads * .6);
+      const extraDeals = Math.max(1, Math.round(recovered * conversionPercent / 100));
+      const revenue = extraDeals * ticket;
+
+      calc.leadsValue.textContent = formatNumber(leads);
+      calc.lostValue.textContent = `${lostPercent}%`;
+      calc.conversionValue.textContent = `${conversionPercent}%`;
+      calc.lostLeads.textContent = formatNumber(lostLeads);
+      calc.recoveredLeads.textContent = formatNumber(recovered);
+      calc.recoveredBarLabel.textContent = formatNumber(recovered);
+      calc.revenue.textContent = formatMoney(revenue);
+      calc.lostBar.style.width = `${Math.min(lostPercent, 100)}%`;
+      calc.recoveredBar.style.width = `${Math.min((recovered / Math.max(leads, 1)) * 100, 100)}%`;
+      calc.note.textContent = `Если AI вернёт хотя бы 60% потерянных лидов, у вас появится около ${formatNumber(extraDeals)} дополнительных оплат в месяц.`;
+    };
+
+    [calc.leads, calc.lost, calc.conversion, calc.ticket].forEach((input) => {
+      input.addEventListener("input", updateCalculator);
+    });
+
+    updateCalculator();
 
     let draggedBlock = null;
 
