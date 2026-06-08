@@ -414,6 +414,70 @@
     }
     .review-author strong { font-size: 15px; }
     .review-author span { color: var(--muted); font-size: 13px; }
+    .niches {
+      background: #eef7f6;
+      border-top: 1px solid #cfe6e3;
+      border-bottom: 1px solid #cfe6e3;
+    }
+    .niche-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .niche-card {
+      display: grid;
+      gap: 14px;
+      min-height: 250px;
+      background: #fff;
+      border: 1px solid #cfe6e3;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .06);
+      transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+    }
+    .niche-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(15, 118, 110, .42);
+      box-shadow: 0 18px 42px rgba(15, 23, 42, .11);
+    }
+    .niche-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .niche-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #ecfdf5;
+      color: var(--teal);
+      font-weight: 900;
+    }
+    .niche-card h3 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.18;
+    }
+    .niche-card dl {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+    }
+    .niche-card dt {
+      color: var(--teal);
+      font-weight: 900;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .niche-card dd {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
     .case-study {
       background: #f8fafc;
       border-top: 1px solid var(--line);
@@ -751,7 +815,7 @@
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .hero { min-height: 780px; }
-      .hero-metrics, .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .case-layout, .case-highlight, .calc-layout, .calc-result-main, .cta-box { grid-template-columns: 1fr; }
+      .hero-metrics, .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .niche-grid, .case-layout, .case-highlight, .calc-layout, .calc-result-main, .cta-box { grid-template-columns: 1fr; }
       .hero-inner { padding-top: 96px; }
       .proof-row { grid-template-columns: 1fr; }
       .drag-handle {
@@ -985,6 +1049,139 @@
     </div>
   </section>
 
+  <section class="page-block niches" id="niches" draggable="true" data-block-id="niches" data-anim="slide-right">
+    <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-kicker">Под каждую нишу</div>
+        <h2>AI-продавец собирается под сценарий конкретного бизнеса</h2>
+        <p>Один и тот же агент может звучать по-разному: где-то он ведёт к просмотру, где-то к диагностике, где-то к счёту или консультации.</p>
+      </div>
+      <div class="niche-grid">
+        <article class="niche-card">
+          <div class="niche-top">
+            <h3>Недвижимость</h3>
+            <div class="niche-icon">RE</div>
+          </div>
+          <dl>
+            <div>
+              <dt>Лид</dt>
+              <dd>Ищет квартиру, дом или коммерческое помещение и сравнивает варианты.</dd>
+            </div>
+            <div>
+              <dt>AI уточняет</dt>
+              <dd>Бюджет, район, срок покупки, ипотеку, формат объекта и удобное время показа.</dd>
+            </div>
+            <div>
+              <dt>Дальше</dt>
+              <dd>Передаёт горячего клиента агенту с краткой карточкой и следующим шагом.</dd>
+            </div>
+          </dl>
+        </article>
+        <article class="niche-card">
+          <div class="niche-top">
+            <h3>Онлайн-школы</h3>
+            <div class="niche-icon">ED</div>
+          </div>
+          <dl>
+            <div>
+              <dt>Лид</dt>
+              <dd>Спрашивает программу, цену, рассрочку и сомневается, подойдёт ли курс.</dd>
+            </div>
+            <div>
+              <dt>AI уточняет</dt>
+              <dd>Цель обучения, текущий уровень, дедлайн, формат занятий и главный барьер.</dd>
+            </div>
+            <div>
+              <dt>Дальше</dt>
+              <dd>Ведёт к пробному уроку, консультации или оплате подходящего тарифа.</dd>
+            </div>
+          </dl>
+        </article>
+        <article class="niche-card">
+          <div class="niche-top">
+            <h3>Медицина и косметология</h3>
+            <div class="niche-icon">MD</div>
+          </div>
+          <dl>
+            <div>
+              <dt>Лид</dt>
+              <dd>Выбирает услугу, врача, дату визита и хочет понять стоимость.</dd>
+            </div>
+            <div>
+              <dt>AI уточняет</dt>
+              <dd>Запрос, желаемый результат, противопоказания на базовом уровне и удобное окно.</dd>
+            </div>
+            <div>
+              <dt>Дальше</dt>
+              <dd>Записывает на консультацию и передаёт администратору важный контекст.</dd>
+            </div>
+          </dl>
+        </article>
+        <article class="niche-card">
+          <div class="niche-top">
+            <h3>Авто и сервис</h3>
+            <div class="niche-icon">AU</div>
+          </div>
+          <dl>
+            <div>
+              <dt>Лид</dt>
+              <dd>Пишет про покупку авто, ремонт, диагностику или подбор запчастей.</dd>
+            </div>
+            <div>
+              <dt>AI уточняет</dt>
+              <dd>Марку, модель, год, проблему, бюджет, срочность и желаемое время визита.</dd>
+            </div>
+            <div>
+              <dt>Дальше</dt>
+              <dd>Формирует заявку мастеру или менеджеру и не даёт клиенту потеряться.</dd>
+            </div>
+          </dl>
+        </article>
+        <article class="niche-card">
+          <div class="niche-top">
+            <h3>B2B-услуги</h3>
+            <div class="niche-icon">B2</div>
+          </div>
+          <dl>
+            <div>
+              <dt>Лид</dt>
+              <dd>Ищет подрядчика, сравнивает условия и хочет понять выгоду внедрения.</dd>
+            </div>
+            <div>
+              <dt>AI уточняет</dt>
+              <dd>Нишу, размер команды, текущий процесс, бюджет, сроки и критерии решения.</dd>
+            </div>
+            <div>
+              <dt>Дальше</dt>
+              <dd>Готовит краткий бриф и предлагает созвон с нужным специалистом.</dd>
+            </div>
+          </dl>
+        </article>
+        <article class="niche-card">
+          <div class="niche-top">
+            <h3>Товары и e-commerce</h3>
+            <div class="niche-icon">EC</div>
+          </div>
+          <dl>
+            <div>
+              <dt>Лид</dt>
+              <dd>Уточняет наличие, характеристики, доставку, гарантию и оплату.</dd>
+            </div>
+            <div>
+              <dt>AI уточняет</dt>
+              <dd>Задачу, бюджет, город, параметры товара и что важно при выборе.</dd>
+            </div>
+            <div>
+              <dt>Дальше</dt>
+              <dd>Подбирает вариант, ведёт к заказу или передаёт сложный вопрос менеджеру.</dd>
+            </div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="page-block case-study" id="case" draggable="true" data-block-id="case" data-anim="slide-left">
     <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
     <div class="section-inner">
@@ -1125,7 +1322,7 @@
     document.documentElement.classList.add("anim-ready");
     const blockWrap = document.querySelector("#pageBlocks");
     const blocks = [...document.querySelectorAll(".page-block")];
-    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .case-summary, .case-results, .case-highlight div, .calc-panel, .calc-result, .cta-box");
+    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .niche-card, .case-summary, .case-results, .case-highlight div, .calc-panel, .calc-result, .cta-box");
     const blockOrderKey = "aiSalesBlockOrder";
     const storedOrder = JSON.parse(localStorage.getItem(blockOrderKey) || "[]");
     const blockMap = new Map(blocks.map((block) => [block.dataset.blockId, block]));
