@@ -1,0 +1,10 @@
+{
+  "name": "AI Sales Agents",
+  "short_name": "AI Sales",
+  "description": "AI-продавец для бизнеса: заявки, Telegram и продажи 24/7.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "lang": "ru"
+}
