@@ -325,7 +325,7 @@
     }
     .reviews-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 380px;
+      grid-template-columns: 1fr;
       gap: 18px;
       align-items: start;
     }
@@ -366,58 +366,6 @@
     }
     .review-author strong { font-size: 15px; }
     .review-author span { color: var(--muted); font-size: 13px; }
-    .review-form {
-      position: sticky;
-      top: 18px;
-      display: grid;
-      gap: 12px;
-      background: #07111f;
-      color: #eef6ff;
-      border-radius: 8px;
-      padding: 18px;
-      border: 1px solid rgba(255, 255, 255, .12);
-      box-shadow: 0 18px 42px rgba(15, 23, 42, .18);
-    }
-    .review-form h3 { margin: 0; font-size: 20px; }
-    .review-form p { margin: 0; color: rgba(238, 246, 255, .72); font-size: 14px; }
-    .review-field {
-      display: grid;
-      gap: 6px;
-    }
-    .review-field span {
-      color: rgba(238, 246, 255, .78);
-      font-size: 13px;
-      font-weight: 800;
-    }
-    .review-field input,
-    .review-field textarea {
-      width: 100%;
-      border: 1px solid rgba(255, 255, 255, .18);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, .08);
-      color: #fff;
-      font: inherit;
-      padding: 11px 12px;
-      outline: none;
-    }
-    .review-field textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-    .review-field input:focus,
-    .review-field textarea:focus {
-      border-color: #86efac;
-      box-shadow: 0 0 0 3px rgba(134, 239, 172, .16);
-    }
-    .review-form .btn {
-      width: 100%;
-    }
-    .review-note {
-      min-height: 20px;
-      color: #86efac;
-      font-size: 13px;
-      font-weight: 800;
-    }
     .cta {
       background: #e9f8ef;
       border-top: 1px solid #cdebd8;
@@ -512,7 +460,6 @@
       .hero-metrics, .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .cta-box { grid-template-columns: 1fr; }
       .hero-inner { padding-top: 96px; }
       .proof-row { grid-template-columns: 1fr; }
-      .review-form { position: static; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -704,7 +651,7 @@
       <div class="section-head">
         <div class="section-kicker">Отзывы клиентов</div>
         <h2>Что замечают владельцы после запуска AI-продавца</h2>
-        <p>Добавьте отзыв прямо на странице: он появится в списке и сохранится в вашем браузере. Для публичной модерации позже подключим базу отзывов.</p>
+        <p>Короткие истории о том, что становится быстрее и понятнее после внедрения AI-продавца.</p>
       </div>
       <div class="reviews-layout">
         <div class="reviews-grid" id="reviewsList" aria-live="polite">
@@ -725,24 +672,6 @@
             </div>
           </article>
         </div>
-        <form class="review-form" id="reviewForm">
-          <h3>Написать отзыв</h3>
-          <p>Опишите, что стало быстрее, понятнее или прибыльнее после AI-продавца.</p>
-          <label class="review-field">
-            <span>Имя</span>
-            <input name="name" type="text" maxlength="40" placeholder="Например, Алексей" required>
-          </label>
-          <label class="review-field">
-            <span>Компания или роль</span>
-            <input name="role" type="text" maxlength="70" placeholder="Например, агентство недвижимости">
-          </label>
-          <label class="review-field">
-            <span>Отзыв</span>
-            <textarea name="text" maxlength="360" placeholder="Что вам понравилось в AI-продавце?" required></textarea>
-          </label>
-          <button class="btn primary" type="submit">Добавить отзыв</button>
-          <div class="review-note" id="reviewNote" role="status"></div>
-        </form>
       </div>
     </div>
   </section>
@@ -776,57 +705,10 @@
   </footer>
   <script>
     document.documentElement.classList.add("anim-ready");
-    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .review-form, .cta-box");
+    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .cta-box");
     revealItems.forEach((item) => item.classList.add("reveal"));
     const pageUrl = window.location.href.split("#")[0];
     const shareText = "AI-продавцы для лидов, Telegram и созвонов";
-    const reviewsList = document.querySelector("#reviewsList");
-    const reviewForm = document.querySelector("#reviewForm");
-    const reviewNote = document.querySelector("#reviewNote");
-    const savedReviews = JSON.parse(localStorage.getItem("aiSalesReviews") || "[]");
-
-    const escapeText = (value) => value.replace(/[&<>"']/g, (char) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      "\"": "&quot;",
-      "'": "&#39;"
-    }[char]));
-
-    const addReview = ({ name, role, text }) => {
-      const card = document.createElement("article");
-      card.className = "review-card reveal is-visible";
-      card.innerHTML = `
-        <div class="review-stars">5/5</div>
-        <blockquote>“${escapeText(text)}”</blockquote>
-        <div class="review-author">
-          <strong>${escapeText(name)}</strong>
-          <span>${escapeText(role || "клиент AI-продавца")}</span>
-        </div>
-      `;
-      reviewsList.prepend(card);
-    };
-
-    savedReviews.forEach(addReview);
-
-    reviewForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const formData = new FormData(reviewForm);
-      const review = {
-        name: formData.get("name").trim(),
-        role: formData.get("role").trim(),
-        text: formData.get("text").trim()
-      };
-
-      if (!review.name || !review.text) return;
-
-      savedReviews.unshift(review);
-      localStorage.setItem("aiSalesReviews", JSON.stringify(savedReviews.slice(0, 12)));
-      addReview(review);
-      reviewForm.reset();
-      reviewNote.textContent = "Отзыв добавлен на страницу.";
-      setTimeout(() => { reviewNote.textContent = ""; }, 3200);
-    });
 
     document.querySelectorAll("[data-share]").forEach((link) => {
       const encodedUrl = encodeURIComponent(pageUrl);
