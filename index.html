@@ -414,6 +414,123 @@
     }
     .review-author strong { font-size: 15px; }
     .review-author span { color: var(--muted); font-size: 13px; }
+    .case-study {
+      background: #f8fafc;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .case-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .case-summary,
+    .case-results {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .06);
+    }
+    .case-summary {
+      display: grid;
+      gap: 14px;
+    }
+    .case-badge {
+      width: fit-content;
+      border-radius: 999px;
+      padding: 7px 11px;
+      background: #ecfdf5;
+      color: #14532d;
+      border: 1px solid #bbf7d0;
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .case-summary h3 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.08;
+    }
+    .case-summary p { margin: 0; color: var(--muted); }
+    .case-points {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .case-points li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--ink);
+    }
+    .case-points li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--green);
+    }
+    .case-results {
+      display: grid;
+      gap: 14px;
+    }
+    .case-metric {
+      display: grid;
+      gap: 8px;
+    }
+    .case-metric-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .case-meter {
+      height: 12px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+    .case-meter span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #16a34a, #0f766e);
+      transform-origin: left;
+      animation: meterGrow .9s ease both;
+    }
+    .case-meter.muted span {
+      background: linear-gradient(90deg, #b45309, #f59e0b);
+    }
+    .case-highlight {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 2px;
+    }
+    .case-highlight div {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #f8fafc;
+    }
+    .case-highlight strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+    .case-highlight span {
+      color: var(--muted);
+      font-size: 13px;
+    }
     .cta {
       background: #e9f8ef;
       border-top: 1px solid #cdebd8;
@@ -494,6 +611,10 @@
       0%, 100% { box-shadow: 0 0 0 rgba(34, 197, 94, 0); }
       45% { box-shadow: 0 0 0 8px rgba(34, 197, 94, .11); }
     }
+    @keyframes meterGrow {
+      from { transform: scaleX(.12); }
+      to { transform: scaleX(1); }
+    }
     footer {
       padding: 26px clamp(18px, 4vw, 56px);
       color: var(--muted);
@@ -510,7 +631,7 @@
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .hero { min-height: 780px; }
-      .hero-metrics, .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .cta-box { grid-template-columns: 1fr; }
+      .hero-metrics, .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .case-layout, .case-highlight, .cta-box { grid-template-columns: 1fr; }
       .hero-inner { padding-top: 96px; }
       .proof-row { grid-template-columns: 1fr; }
       .drag-handle {
@@ -744,6 +865,59 @@
     </div>
   </section>
 
+  <section class="page-block case-study" id="case" draggable="true" data-block-id="case" data-anim="slide-left">
+    <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-kicker">Мини-кейс</div>
+        <h2>Как AI-продавец возвращает заявки, которые раньше терялись</h2>
+        <p>Пример сценария для бизнеса с входящими заявками из Telegram, сайта и рекламных форм.</p>
+      </div>
+      <div class="case-layout">
+        <article class="case-summary">
+          <div class="case-badge">Входящие лиды + Telegram</div>
+          <h3>120 заявок в месяц, 35 терялись из-за позднего ответа</h3>
+          <p>AI-продавец взял первый ответ, квалификацию и повторные касания. Менеджер подключается только там, где нужен созвон, оплата или ручное решение.</p>
+          <ul class="case-points">
+            <li>Ответ новым лидам за первую минуту вместо ожидания свободного менеджера.</li>
+            <li>Автоматический вопрос о задаче, бюджете, сроках и удобном способе связи.</li>
+            <li>Передача горячих лидов в дашборд с понятным следующим действием.</li>
+          </ul>
+        </article>
+        <article class="case-results">
+          <div class="case-metric">
+            <div class="case-metric-head">
+              <span>Потерянные заявки до AI</span>
+              <strong>35 из 120</strong>
+            </div>
+            <div class="case-meter muted"><span style="width: 29%"></span></div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-head">
+              <span>Заявки с быстрым первым ответом после AI</span>
+              <strong>96 из 120</strong>
+            </div>
+            <div class="case-meter"><span style="width: 80%"></span></div>
+          </div>
+          <div class="case-highlight">
+            <div>
+              <strong>1 мин</strong>
+              <span>среднее время первого ответа</span>
+            </div>
+            <div>
+              <strong>80%</strong>
+              <span>заявок получают быстрый контакт</span>
+            </div>
+            <div>
+              <strong>+22</strong>
+              <span>лида в месяц возвращаются в работу</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="page-block cta" id="launch" draggable="true" data-block-id="launch" data-anim="lift">
     <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
     <div class="section-inner">
@@ -777,7 +951,7 @@
     document.documentElement.classList.add("anim-ready");
     const blockWrap = document.querySelector("#pageBlocks");
     const blocks = [...document.querySelectorAll(".page-block")];
-    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .cta-box");
+    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .case-summary, .case-results, .case-highlight div, .cta-box");
     const blockOrderKey = "aiSalesBlockOrder";
     const storedOrder = JSON.parse(localStorage.getItem(blockOrderKey) || "[]");
     const blockMap = new Map(blocks.map((block) => [block.dataset.blockId, block]));
