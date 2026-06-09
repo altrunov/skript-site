@@ -985,6 +985,207 @@
       border-color: rgba(37, 99, 235, .34);
       box-shadow: var(--shadow-sm);
     }
+    .live-demo {
+      background: linear-gradient(180deg, #ffffff 0%, #eef7f6 100%);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid #cfe6e3;
+    }
+    .live-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .agent-card,
+    .live-console {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: #fff;
+      box-shadow: var(--shadow-md);
+    }
+    .agent-card::before,
+    .live-console::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 4px;
+      background: linear-gradient(90deg, #22c55e, #0f766e, #2563eb);
+    }
+    .agent-card {
+      display: grid;
+      gap: 18px;
+      padding: 22px;
+    }
+    .agent-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .agent-avatar {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #07111f;
+      color: #86efac;
+      font-weight: 900;
+      box-shadow: 0 18px 38px rgba(7, 17, 31, .2);
+    }
+    .agent-name {
+      display: grid;
+      gap: 2px;
+      margin-right: auto;
+    }
+    .agent-name strong { font-size: 20px; line-height: 1.1; }
+    .agent-name span { color: var(--muted); font-size: 14px; }
+    .autopilot-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: #ecfdf5;
+      color: #14532d;
+      border: 1px solid #bbf7d0;
+      font-size: 13px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .autopilot-pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, .14);
+      animation: livePulse 1.8s ease-in-out infinite;
+    }
+    .agent-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .agent-action {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 13px;
+      background: #f8fafc;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .agent-action:hover {
+      transform: translateY(-4px);
+      border-color: rgba(15, 118, 110, .36);
+      box-shadow: var(--shadow-sm);
+    }
+    .agent-action strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .agent-action span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .integrations-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .integration-chip {
+      border: 1px solid #cfe6e3;
+      border-radius: 999px;
+      padding: 8px 10px;
+      background: #f0fdfa;
+      color: #134e4a;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .live-console {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      min-height: 470px;
+      background: #07111f;
+      color: #eef6ff;
+      border-color: rgba(255, 255, 255, .14);
+    }
+    .live-console-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 18px 18px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+    }
+    .live-console-top strong { font-size: 15px; }
+    .live-console-top span {
+      color: rgba(238, 246, 255, .62);
+      font-size: 13px;
+    }
+    .live-thread {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      align-content: start;
+    }
+    .live-message {
+      max-width: 84%;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      background: rgba(255, 255, 255, .08);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, .2);
+      animation: bubbleIn .7s ease both;
+    }
+    .live-message.ai {
+      margin-left: auto;
+      background: #ecfdf5;
+      color: #052e16;
+      border-color: #bbf7d0;
+    }
+    .live-message small {
+      display: block;
+      color: rgba(238, 246, 255, .58);
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+    .live-message.ai small { color: #0f766e; }
+    .meeting-card {
+      margin: 0 18px 18px;
+      display: grid;
+      grid-template-columns: 62px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 22px 54px rgba(0, 0, 0, .28);
+    }
+    .calendar-tile {
+      display: grid;
+      place-items: center;
+      min-height: 58px;
+      border-radius: var(--radius-sm);
+      background: #ecfdf5;
+      color: #14532d;
+      font-weight: 900;
+      border: 1px solid #bbf7d0;
+    }
+    .meeting-card strong { display: block; font-size: 16px; }
+    .meeting-card span { color: var(--muted); font-size: 13px; }
+    .meeting-score {
+      border-radius: 999px;
+      padding: 8px 10px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 13px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
     .anim-ready .reveal {
       opacity: 0;
       transform: translateY(22px);
@@ -1091,6 +1292,10 @@
       0% { transform: translateX(-110%); }
       55%, 100% { transform: translateX(110%); }
     }
+    @keyframes livePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(.78); opacity: .62; }
+    }
     footer {
       padding: 26px clamp(18px, 4vw, 56px);
       color: var(--muted);
@@ -1107,12 +1312,19 @@
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .hero { min-height: 780px; }
-      .hero-metrics, .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .niche-grid, .case-layout, .case-highlight, .calc-layout, .calc-result-main, .cta-box { grid-template-columns: 1fr; }
+      .hero-metrics, .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .niche-grid, .case-layout, .case-highlight, .calc-layout, .calc-result-main, .cta-box, .live-layout, .agent-actions { grid-template-columns: 1fr; }
       .hero-inner { grid-template-columns: 1fr; }
       .hero-inner { padding-top: 96px; }
       .hero-visual { min-height: 360px; }
       .agent-console { transform: none; animation: consoleFloatMobile 6s ease-in-out infinite; }
       .orbit-dot { display: none; }
+      .agent-status, .meeting-card {
+        align-items: flex-start;
+        grid-template-columns: 1fr;
+      }
+      .meeting-card { margin: 0 14px 14px; }
+      .live-console { min-height: auto; }
+      .autopilot-pill { width: fit-content; }
       .proof-row { grid-template-columns: 1fr; }
       .drag-handle {
         width: 34px;
@@ -1149,6 +1361,7 @@
       </a>
       <div class="nav-links">
         <a href="#system">Как работает</a>
+        <a href="#live">Live-пульт</a>
         <a href="#coach">Контроль качества</a>
         <a href="#launch">Запуск</a>
       </div>
@@ -1241,6 +1454,87 @@
           <div class="icon">6</div>
           <h3>Учит продавца</h3>
           <p>Провальные диалоги превращаются в уроки, которые попадают в память AI-продавца.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-block live-demo" id="live" draggable="true" data-block-id="live" data-anim="zoom">
+    <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-kicker">Визуальный пульт AI-продавца</div>
+        <h2>Показываем не обещание, а путь лида до встречи</h2>
+        <p>Новый блок делает сайт более продуктовым: видно, как AI-продавец ведет диалог, включает autopilot, поднимает скоринг, фиксирует следующий шаг и передает результат в рабочие инструменты.</p>
+      </div>
+      <div class="live-layout">
+        <article class="agent-card">
+          <div class="agent-status">
+            <div class="agent-avatar">AI</div>
+            <div class="agent-name">
+              <strong>Наш продавец</strong>
+              <span>работает с лидами, CRM и повторными касаниями</span>
+            </div>
+            <div class="autopilot-pill">Autopilot включен</div>
+          </div>
+          <div class="agent-actions">
+            <div class="agent-action">
+              <strong>Находит сигнал</strong>
+              <span>видит интерес, нишу, срочность и источник заявки.</span>
+            </div>
+            <div class="agent-action">
+              <strong>Пишет лично</strong>
+              <span>не шаблон, а короткий ответ под контекст клиента.</span>
+            </div>
+            <div class="agent-action">
+              <strong>Обрабатывает возражение</strong>
+              <span>мягко уточняет бюджет, сроки и критерии выбора.</span>
+            </div>
+            <div class="agent-action">
+              <strong>Ставит следующий шаг</strong>
+              <span>созвон, оплата, КП или передача менеджеру.</span>
+            </div>
+          </div>
+          <div class="integrations-strip" aria-label="Интеграции">
+            <span class="integration-chip">Telegram</span>
+            <span class="integration-chip">CRM</span>
+            <span class="integration-chip">Календарь</span>
+            <span class="integration-chip">Email</span>
+            <span class="integration-chip">QA</span>
+            <span class="integration-chip">База лидов</span>
+          </div>
+        </article>
+        <article class="live-console" aria-label="Пример диалога AI-продавца">
+          <div class="live-console-top">
+            <strong>Live pipeline</strong>
+            <span>скоринг, диалог и встреча</span>
+          </div>
+          <div class="live-thread">
+            <div class="live-message">
+              <small>Лид</small>
+              Хочу AI-продавца для входящих заявок из Telegram. Сможет отвечать ночью?
+            </div>
+            <div class="live-message ai">
+              <small>AI-продавец</small>
+              Да. Уточню нишу, поток заявок и куда передавать горячих клиентов. После этого предложу сценарий запуска.
+            </div>
+            <div class="live-message">
+              <small>Лид</small>
+              У нас онлайн-школа, 120-150 заявок в месяц, теряем часть после цены.
+            </div>
+            <div class="live-message ai">
+              <small>AI-продавец</small>
+              Похоже, нужен сценарий возврата после цены и контроль качества ответов. Предложить короткий созвон на 15 минут?
+            </div>
+          </div>
+          <div class="meeting-card">
+            <div class="calendar-tile">15м</div>
+            <div>
+              <strong>Встреча создана</strong>
+              <span>лид горячий, причина интереса сохранена в карточке</span>
+            </div>
+            <div class="meeting-score">Score 86</div>
+          </div>
         </article>
       </div>
     </div>
@@ -1644,17 +1938,22 @@
     document.documentElement.classList.add("anim-ready");
     const blockWrap = document.querySelector("#pageBlocks");
     const blocks = [...document.querySelectorAll(".page-block")];
-    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .niche-card, .case-summary, .case-results, .case-highlight div, .calc-panel, .calc-result, .cta-box");
+    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .niche-card, .case-summary, .case-results, .case-highlight div, .calc-panel, .calc-result, .cta-box, .agent-card, .live-console, .agent-action, .live-message, .meeting-card");
     const hero = document.querySelector(".hero");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const blockOrderKey = "aiSalesBlockOrder";
     const storedOrder = JSON.parse(localStorage.getItem(blockOrderKey) || "[]");
     const blockMap = new Map(blocks.map((block) => [block.dataset.blockId, block]));
+    const currentBlockIds = blocks.map((block) => block.dataset.blockId);
 
-    storedOrder.forEach((id) => {
-      const block = blockMap.get(id);
-      if (block) blockWrap.appendChild(block);
-    });
+    if (storedOrder.length && currentBlockIds.every((id) => storedOrder.includes(id))) {
+      storedOrder.forEach((id) => {
+        const block = blockMap.get(id);
+        if (block) blockWrap.appendChild(block);
+      });
+    } else {
+      localStorage.removeItem(blockOrderKey);
+    }
 
     revealItems.forEach((item, index) => {
       item.classList.add("reveal");
