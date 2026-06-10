@@ -1429,6 +1429,136 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+
+    /* Premium editorial layer */
+    .hero {
+      min-height: 92vh;
+      align-items: end;
+      background:
+        linear-gradient(180deg, rgba(3, 7, 18, .52) 0%, rgba(3, 7, 18, .88) 72%, rgba(3, 7, 18, .96) 100%),
+        linear-gradient(90deg, rgba(3, 7, 18, .96) 0%, rgba(3, 7, 18, .72) 46%, rgba(3, 7, 18, .28) 100%),
+        url("assets/ai-sales-hero.png") center / cover no-repeat;
+    }
+    .hero::before {
+      opacity: .38;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), transparent 34%),
+        linear-gradient(90deg, rgba(15,118,110,.16), transparent 42%);
+    }
+    .hero::after {
+      opacity: .08;
+      background-size: 96px 96px;
+      mask-image: linear-gradient(180deg, #000 0%, transparent 72%);
+    }
+    .hero-inner {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: end;
+      padding-top: 138px;
+      padding-bottom: 44px;
+    }
+    .hero-copy {
+      max-width: 980px;
+    }
+    .hero-visual {
+      display: none;
+    }
+    .eyebrow {
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.18);
+      color: rgba(255,255,255,.84);
+      box-shadow: 0 18px 44px rgba(0,0,0,.2);
+      backdrop-filter: blur(12px);
+    }
+    h1 {
+      max-width: 900px;
+      font-size: clamp(44px, 6.1vw, 76px);
+      line-height: .98;
+    }
+    .hero p {
+      max-width: 760px;
+      color: rgba(255,255,255,.76);
+      font-size: clamp(17px, 1.65vw, 22px);
+    }
+    .btn {
+      min-height: 48px;
+      border-radius: 999px;
+      padding: 13px 18px;
+    }
+    .btn.primary {
+      background: #f8fafc;
+      color: #07111f;
+      animation: premiumCta 4.2s ease-in-out infinite;
+    }
+    .btn.secondary {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.22);
+      backdrop-filter: blur(12px);
+    }
+    .hero-metrics {
+      width: min(980px, 100%);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 28px;
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 28px 90px rgba(0,0,0,.28);
+      backdrop-filter: blur(18px);
+    }
+    .hero-metric {
+      min-height: 104px;
+      background: rgba(255,255,255,.06);
+      box-shadow: none;
+    }
+    .hero-metric::after {
+      left: 16px;
+      right: 16px;
+      background: linear-gradient(90deg, rgba(248,250,252,.9), rgba(134,239,172,.7), transparent);
+    }
+    .hero-metric strong {
+      color: #f8fafc;
+      font-size: 30px;
+    }
+    .hero-metric span {
+      color: rgba(255,255,255,.68);
+    }
+    .card,
+    .review-card,
+    .niche-card,
+    .compare-list,
+    .case-summary,
+    .case-results,
+    .calc-result,
+    .cta-box,
+    .agent-card,
+    .live-console {
+      border-color: rgba(17,24,39,.08);
+      box-shadow: 0 18px 50px rgba(17,24,39,.08);
+    }
+    .card:hover,
+    .review-card:hover,
+    .niche-card:hover,
+    .compare-list:hover,
+    .agent-action:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 28px 78px rgba(17,24,39,.13);
+    }
+    .band,
+    .calculator {
+      background:
+        linear-gradient(180deg, #08111f 0%, #101827 100%);
+    }
+    .live-demo,
+    .niches,
+    .cta {
+      background: linear-gradient(180deg, #f6f8fb 0%, #eef3f2 100%);
+    }
+    @keyframes premiumCta {
+      0%, 100% { box-shadow: 0 0 0 rgba(248,250,252,0), 0 18px 40px rgba(0,0,0,.2); }
+      50% { box-shadow: 0 0 0 8px rgba(248,250,252,.1), 0 24px 58px rgba(0,0,0,.28); }
+    }
+
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .hero { min-height: 92vh; }
@@ -1483,7 +1613,7 @@
     <nav class="nav" aria-label="Главная навигация">
       <a class="brand" href="#">
         <span class="brand-mark">AI</span>
-        <span>AI Sales Agents</span>
+        <span>AI-продавец</span>
       </a>
       <div class="nav-links">
         <a href="#system">Как работает</a>
