@@ -1559,19 +1559,263 @@
       50% { box-shadow: 0 0 0 8px rgba(248,250,252,.1), 0 24px 58px rgba(0,0,0,.28); }
     }
 
+    .command-center {
+      background:
+        radial-gradient(circle at 12% 0%, rgba(3, 105, 161, .12), transparent 34%),
+        linear-gradient(180deg, #f8fafc 0%, #eef3f6 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .command-shell {
+      display: grid;
+      grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .trust-panel,
+    .ops-board {
+      border: 1px solid rgba(15, 23, 42, .1);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, .88);
+      box-shadow: 0 30px 90px rgba(15, 23, 42, .11);
+      overflow: hidden;
+    }
+    .trust-panel {
+      padding: clamp(20px, 3vw, 30px);
+      display: grid;
+      align-content: space-between;
+      gap: 22px;
+    }
+    .trust-panel h2 {
+      max-width: 760px;
+    }
+    .trust-panel p {
+      color: var(--muted);
+      margin: 12px 0 0;
+    }
+    .trust-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .trust-badge {
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 8px 11px;
+      border: 1px solid #d8e2ec;
+      background: #f8fafc;
+      color: #0f172a;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .trust-proof {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .proof-tile {
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+    }
+    .proof-tile strong {
+      display: block;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1;
+      color: #0369a1;
+      margin-bottom: 7px;
+      font-variant-numeric: tabular-nums;
+    }
+    .proof-tile span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .ops-board {
+      background: #0f172a;
+      color: #eaf2ff;
+      position: relative;
+    }
+    .ops-board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: .5;
+    }
+    .ops-top,
+    .ops-body {
+      position: relative;
+      z-index: 1;
+    }
+    .ops-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 18px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .ops-top strong {
+      font-size: 15px;
+    }
+    .ops-live {
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: rgba(14, 165, 233, .14);
+      border: 1px solid rgba(125, 211, 252, .34);
+      color: #bae6fd;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .ops-body {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      padding: 18px;
+    }
+    .ops-card {
+      min-height: 142px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      background: rgba(255,255,255,.07);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
+    }
+    .ops-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(125, 211, 252, .44);
+      background: rgba(255,255,255,.1);
+    }
+    .ops-card.wide {
+      grid-column: 1 / -1;
+      min-height: auto;
+    }
+    .ops-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: rgba(234, 242, 255, .64);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .ops-card h3 {
+      margin: 12px 0 8px;
+      font-size: 19px;
+      line-height: 1.15;
+    }
+    .ops-card p {
+      margin: 0;
+      color: rgba(234, 242, 255, .72);
+      font-size: 14px;
+    }
+    .ops-meter {
+      height: 9px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,.12);
+      margin-top: 12px;
+    }
+    .ops-meter span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      transform-origin: left;
+      animation: meterGrow .9s ease both;
+    }
+    .ops-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .ops-flow span {
+      border-radius: var(--radius-sm);
+      padding: 10px 8px;
+      background: rgba(255,255,255,.08);
+      color: rgba(234,242,255,.8);
+      font-size: 12px;
+      font-weight: 900;
+      text-align: center;
+    }
+    .page-block:not(.band):not(.calculator):not(.cta):not(.live-demo):not(.command-center) {
+      background:
+        linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    }
+    .section-head {
+      max-width: 860px;
+    }
+    .section-kicker {
+      color: #0369a1;
+    }
+    .card,
+    .review-card,
+    .niche-card,
+    .case-summary,
+    .case-results,
+    .calc-result,
+    .agent-card,
+    .live-console,
+    .compare-list {
+      border-radius: var(--radius-md);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,.9) inset,
+        0 24px 70px rgba(15,23,42,.1);
+    }
+    .btn,
+    .social-link,
+    .drag-handle {
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .hero { min-height: 92vh; }
-      .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .niche-grid, .case-layout, .case-highlight, .calc-layout, .calc-result-main, .cta-box, .live-layout, .agent-actions { grid-template-columns: 1fr; }
-      .hero-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 24px; }
-      .hero-metric { min-height: 96px; padding: 10px; }
-      .hero-metric strong { font-size: 21px; }
-      .hero-metric span { font-size: 11px; }
+      .grid, .workflow, .compare, .reviews-layout, .reviews-grid, .niche-grid, .case-layout, .case-highlight, .calc-layout, .calc-result-main, .cta-box, .live-layout, .agent-actions, .command-shell, .trust-proof, .ops-body, .ops-flow { grid-template-columns: 1fr; }
+      .nav,
+      .hero-inner {
+        width: calc(100% - 36px);
+        max-width: calc(100% - 36px);
+      }
+      .hero-copy {
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+      }
+      .hero h1 {
+        width: 100%;
+        max-width: 100%;
+        font-size: clamp(28px, 7.4vw, 32px) !important;
+        line-height: 1.12;
+        overflow-wrap: break-word;
+        word-break: normal;
+        hyphens: auto;
+      }
+      .hero-metrics { grid-template-columns: 1fr; gap: 8px; margin-top: 24px; }
+      .hero-metric { min-height: auto; padding: 12px; }
+      .hero-metric strong { font-size: 24px; }
+      .hero-metric span { font-size: 12px; }
       .hero-inner { grid-template-columns: 1fr; }
       .hero-inner { padding-top: 96px; padding-bottom: 30px; }
       h1 { font-size: clamp(34px, 10vw, 44px); }
       .hero p { font-size: 16px; margin-top: 16px; }
       .actions { margin-top: 22px; }
+      .actions .btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
       .hero-visual { display: none; }
       .agent-console { transform: none; animation: consoleFloatMobile 6s ease-in-out infinite; }
       .agent-status, .meeting-card {
@@ -1669,6 +1913,69 @@
   </header>
 
   <main id="pageBlocks">
+  <section class="page-block command-center" id="command" draggable="true" data-block-id="command" data-anim="zoom">
+    <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
+    <div class="section-inner">
+      <div class="command-shell">
+        <div class="trust-panel">
+          <div>
+            <div class="section-kicker">Операционная система для AI-продаж</div>
+            <h2>Сайт должен выглядеть как продукт, которому можно доверить лиды</h2>
+            <p>В одном месте собираются лиды, промпты, качество диалогов, повторные касания и обучение продавца на удачных и проваленных переписках.</p>
+            <div class="trust-badges" aria-label="Ключевые доверительные сигналы">
+              <span class="trust-badge">Единая база лидов</span>
+              <span class="trust-badge">Контроль качества</span>
+              <span class="trust-badge">Защита от повторных касаний</span>
+              <span class="trust-badge">Промпты под нишу</span>
+            </div>
+          </div>
+          <div class="trust-proof">
+            <div class="proof-tile">
+              <strong>2</strong>
+              <span>сервера могут работать по одной логике и общей памяти</span>
+            </div>
+            <div class="proof-tile">
+              <strong>0</strong>
+              <span>повторных сообщений одному человеку при синхронизации</span>
+            </div>
+            <div class="proof-tile">
+              <strong>24/7</strong>
+              <span>ответы, follow-up и разбор диалогов без пауз</span>
+            </div>
+          </div>
+        </div>
+        <div class="ops-board" aria-label="Пример рабочего пульта AI-продавца">
+          <div class="ops-top">
+            <strong>Пульт AI-продавца</strong>
+            <span class="ops-live">Live контроль</span>
+          </div>
+          <div class="ops-body">
+            <article class="ops-card">
+              <div class="ops-label"><span>Лид</span><span>86/100</span></div>
+              <h3>Готов к созвону</h3>
+              <p>AI собрал нишу, бюджет, возражения и предложил следующий шаг.</p>
+              <div class="ops-meter"><span style="width: 86%"></span></div>
+            </article>
+            <article class="ops-card">
+              <div class="ops-label"><span>Качество</span><span>QA</span></div>
+              <h3>Ответ без перегруза</h3>
+              <p>Проверка длины, тона, пользы и наличия конкретного CTA.</p>
+              <div class="ops-meter"><span style="width: 74%"></span></div>
+            </article>
+            <article class="ops-card wide">
+              <div class="ops-label"><span>Маршрут сделки</span><span>Автопилот</span></div>
+              <div class="ops-flow">
+                <span>Заявка</span>
+                <span>Скоринг</span>
+                <span>Диалог</span>
+                <span>Созвон</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="page-block" id="system" draggable="true" data-block-id="system" data-anim="slide-left">
     <button class="drag-handle" type="button" aria-label="Переместить блок" title="Переместить блок">↕</button>
     <div class="section-inner">
@@ -2191,7 +2498,7 @@
     document.documentElement.classList.add("anim-ready");
     const blockWrap = document.querySelector("#pageBlocks");
     const blocks = [...document.querySelectorAll(".page-block")];
-    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .niche-card, .case-summary, .case-results, .case-highlight div, .calc-panel, .calc-result, .cta-box, .agent-card, .live-console, .agent-action, .live-message, .meeting-card");
+    const revealItems = document.querySelectorAll("section, .card, .step, .compare-list, .proof-row, .review-card, .niche-card, .case-summary, .case-results, .case-highlight div, .calc-panel, .calc-result, .cta-box, .agent-card, .live-console, .agent-action, .live-message, .meeting-card, .trust-panel, .ops-board, .proof-tile, .ops-card");
     const hero = document.querySelector(".hero");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const blockOrderKey = "aiSalesBlockOrder";
